@@ -1,15 +1,22 @@
 package fr.openclassrooms.rayane.patientsinfos.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "genre")
+@Data
 public class Genre {
-    @Id int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id Integer id;
+
     String genre;
-    @OneToOne(mappedBy = "genre")
-    Patient patient;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre", fetch = FetchType.LAZY)
+    @JsonIgnore
+    Set<Patient> patient;
 }
