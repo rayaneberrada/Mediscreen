@@ -23,6 +23,8 @@
 
     <modules>
         <module>patients-infos</module>
+        <module>note-infos</module>
     </modules>
+
     <packaging>pom</packaging>
 </project>
