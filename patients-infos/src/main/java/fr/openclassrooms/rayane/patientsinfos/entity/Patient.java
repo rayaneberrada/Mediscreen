@@ -19,7 +19,7 @@ public class Patient {
     String prenom;
     String nom;
     Date date_naissance;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     Genre genre;
     String adresse;

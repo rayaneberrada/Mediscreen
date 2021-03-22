@@ -48,6 +48,7 @@ public class PatientService {
     public PatientDto addPatient(PatientDto patient) {
         // Retrieve Genre corresponding to it's genre
         Genre genre = genreService.getGenreByGenre(patient.getGenre());
+        logger.info(String.valueOf(genre.getGenre()));
 
         // Create a Patient object from the dto and set it's genre with a proper Genre object
         // ( PatientDto only contain a String representing the genre, that's why we have to fetch it in db )
