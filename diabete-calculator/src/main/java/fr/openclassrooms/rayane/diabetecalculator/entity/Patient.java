@@ -1,7 +1,10 @@
 package fr.openclassrooms.rayane.diabetecalculator.entity;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class Patient {
     String prenom;
     String nom;
