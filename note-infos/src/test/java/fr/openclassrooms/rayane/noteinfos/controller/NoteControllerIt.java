@@ -1,7 +1,8 @@
-package fr.openclassrooms.rayane.patientsinfos.controller;
+package fr.openclassrooms.rayane.noteinfos.controller;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +10,26 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureMockMvc
-public class PatientControllerIt {
+public class NoteControllerIt {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvck;
 
     @Test
-    public void Get_GetPatient_ToRespond() throws Exception {
-        mockMvc.perform(get("/patient/get?firstName=jean&lastName=rochefaible")).andExpect(status().isOk());
+    public void Get_GetNotesFromPatient_ToRespond() throws Exception {
+        mockMvck.perform(get("/patHistory/get/1")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void Get_GetSpecificNoteFromPatient_ToRespond() throws Exception {
+        mockMvck.perform(get("/patHistory/get?patientId=1&noteNumber=2")).andExpect(status().isOk());
     }
 }
