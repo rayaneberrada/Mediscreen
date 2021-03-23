@@ -37,4 +37,9 @@ public class NoteService {
 
         return noteRepository.save(noteToUpdate);
     }
+
+    public void deleteNote(int patId, int noteNumber) {
+        Note note = noteRepository.findNoteByPatIdAndNoteNumber(patId, noteNumber);
+        noteRepository.delete(note);
+    }
 }
