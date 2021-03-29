@@ -1,24 +1,26 @@
 package fr.openclassrooms.rayane.patientsinfos.dto;
 
-import fr.openclassrooms.rayane.patientsinfos.entity.Genre;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientDto {
-    String prenom;
-    String nom;
-    Date date_naissance;
-    String genre;
-    String adresse;
-    String telephone;
+    String given;
+    String family;
+    Date dob;
+    String sex;
+    String address;
+    String phone;
+
+    public void setDob(String dob) throws ParseException {
+        this.dob = new SimpleDateFormat("yyyy-MM-dd").parse(dob); ;
+    }
 }

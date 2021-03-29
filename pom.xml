@@ -25,6 +25,7 @@
         <module>patients-infos</module>
         <module>note-infos</module>
         <module>diabete-calculator</module>
+        <module>eureka-server</module>
     </modules>
 
     <packaging>pom</packaging>

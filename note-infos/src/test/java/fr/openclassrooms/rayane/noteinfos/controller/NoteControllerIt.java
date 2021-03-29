@@ -25,11 +25,7 @@ public class NoteControllerIt {
 
     @Test
     public void Get_GetNotesFromPatient_ToRespond() throws Exception {
-        mockMvck.perform(get("/patHistory/get/1")).andExpect(status().isOk());
+        mockMvck.perform(get("/patHistory/get?patientName=TestNone")).andExpect(status().isOk());
     }
 
-    @Test
-    public void Get_GetSpecificNoteFromPatient_ToRespond() throws Exception {
-        mockMvck.perform(get("/patHistory/get?patientId=1&noteNumber=2")).andExpect(status().isOk());
-    }
 }

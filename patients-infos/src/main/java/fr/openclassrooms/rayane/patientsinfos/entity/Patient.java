@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,12 +18,10 @@ public class Patient {
     @Id
     Integer id;
 
-    String prenom;
-    String nom;
-    Date date_naissance;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "genre_id", referencedColumnName = "id")
-    Genre genre;
-    String adresse;
-    String telephone;
+    String family;
+    String given;
+    Date dob;
+    String sex;
+    String address;
+    String phone;
 }

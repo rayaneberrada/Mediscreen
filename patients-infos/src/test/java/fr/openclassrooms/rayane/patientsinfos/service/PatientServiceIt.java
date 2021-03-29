@@ -3,10 +3,7 @@ package fr.openclassrooms.rayane.patientsinfos.service;
 import fr.openclassrooms.rayane.patientsinfos.dto.PatientDto;
 import fr.openclassrooms.rayane.patientsinfos.entity.Patient;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -20,6 +17,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Table;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.*;
@@ -27,71 +26,56 @@ import static org.assertj.core.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PatientServiceIt {
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Autowired PatientService patientService;
 
+    @AfterAll
+    public void cleanUp() {
+        patientService.deletePatient("mairedelille");
+    }
+
     @Test
     @Order(1)
-    public void Get_FromFirstNameAndLastName_CorrespondingPatient() {
+    public void Add_NewPatient_ThenReturnIt() {
         // GIVEN
-        String firstName = "jean";
-        String lastName = "rochefaible";
-
-        // WHEN
-        PatientDto patient = patientService.findByNameAndLastName(firstName, lastName);
-
-        // THEN
-        assertThat(patient.getPrenom()).isEqualTo(firstName);
-        assertThat(patient.getNom()).isEqualTo(lastName);
-    }
-
-    @Test
-    @Order(2)
-    public void Update_FromFirstNameAndLastName_CorrespondingPatient() {
-        // GIVEN
-        String firstName = "jean";
-        String lastName = "rochefaible";
-        PatientDto patientDto = new PatientDto("jean", "rochefort", new Date(), "homme","20 avenue du cadi", "000");
-
-        // WHEN
-        PatientDto patient = patientService.updatePatient(firstName, lastName, patientDto);
-
-        // THEN
-        assertThat(patient.getNom()).isEqualTo("rochefort");
-        assertThat(patient.getTelephone()).isEqualTo("000");
-    }
-
-    @Test
-    @Order(3)
-    public void Update_FromFirstNameAndLastName_CorrespondingPatientBack() {
-        // GIVEN
-        String firstName = "jean";
-        String lastName = "rochefort";
-        PatientDto patientDto = new PatientDto("jean", "rochefaible", new Date(), "homme","20 avenue du cadi", "0654378290");
-
-        // WHEN
-        PatientDto patient = patientService.updatePatient(firstName, lastName, patientDto);
-
-        // THEN
-        assertThat(patient.getNom()).isEqualTo("rochefaible");
-        assertThat(patient.getTelephone()).isEqualTo("0654378290");
-    }
-
-    @Test
-    @Order(4)
-    public void Add_NewPatient_ThenReturn() {
-        // GIVEN
-        PatientDto patientDto = new PatientDto("alphonse", "mairedelille", new Date(), "femme","quelue part", "0654378290");
+        PatientDto patientDto = new PatientDto("alphonse", "mairedelille",new Date(), "F","quelue part", "0654378290");
 
         // WHEN
         PatientDto patient = patientService.addPatient(patientDto);
 
         // THEN
-        assertThat(patient.getPrenom()).isEqualTo("alphonse");
-        assertThat(patient.getNom()).isEqualTo("mairedelille");
+        assertThat(patient.getGiven()).isEqualTo("alphonse");
+        assertThat(patient.getFamily()).isEqualTo("mairedelille");
     }
+
+    @Test
+    @Order(2)
+    public void Get_FromFirstNameAndLastName_CorrespondingPatient() {
+        // GIVEN
+        String lastName = "mairedelille";
+
+        // WHEN
+        PatientDto patient = patientService.findByLastName(lastName);
+
+        // THEN
+        assertThat(patient.getFamily()).isEqualTo(lastName);
+    }
+
+    @Test
+    @Order(3)
+    public void Update_FromFirstNameAndLastName_CorrespondingPatient() {
+        // GIVEN
+        String lastName = "mairedelille";
+        PatientDto patientDto = new PatientDto("alphonse", "mairedelille", new Date(), "femme","Lille", "000");
+
+        // WHEN
+        PatientDto patient = patientService.updatePatient(lastName, patientDto);
+
+        // THEN
+        assertThat(patient.getAddress()).isEqualTo("Lille");
+        assertThat(patient.getPhone()).isEqualTo("000");
+    }
+
 }

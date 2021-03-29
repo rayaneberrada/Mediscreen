@@ -1,6 +1,7 @@
 package fr.openclassrooms.rayane.noteinfos.service;
 
 import fr.openclassrooms.rayane.noteinfos.entity.Note;
+import fr.openclassrooms.rayane.noteinfos.repository.NoteRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,18 +21,21 @@ public class NoteServiceIt {
 
     @Autowired NoteService noteService;
 
+    @Autowired
+    NoteRepository noteRepository;
+
     @AfterAll
     public void cleanUp() {
-        noteService.deleteNote(999, 1);
-        noteService.deleteNote(999, 2);
+        noteService.deleteNote("Test modifié");
+        noteService.deleteNote("Deuxième note pour le test");
     }
 
     @Test
     @Order(1)
     public void Add_Note() {
         // GIVEN
-        Note firstNote = new Note(1, 999, "test", "Première note pour le test");
-        Note secondNote = new Note(2, 999, "test", "Deuxième note pour le test");
+        Note firstNote = new Note(999, "test", "Première note pour le test");
+        Note secondNote = new Note(999, "test", "Deuxième note pour le test");
 
         // WHEN
         Note firstNoteAdded = noteService.addNote(firstNote);
@@ -39,10 +43,8 @@ public class NoteServiceIt {
 
         // THEN
         assertThat(firstNote.getPatId()).isEqualTo(firstNoteAdded.getPatId());
-        assertThat(firstNote.getNoteNumber()).isEqualTo(firstNoteAdded.getNoteNumber());
 
         assertThat(secondNote.getPatId()).isEqualTo(secondNoteAdded.getPatId());
-        assertThat(secondNote.getNoteNumber()).isEqualTo(secondNoteAdded.getNoteNumber());
     }
 
     @Test
@@ -61,13 +63,13 @@ public class NoteServiceIt {
     @Test
     @Order(3)
     public void Update_NoteDescription() {
-        // GIVEN
-        Note noteUpdate = noteService.getNoteByPatientIdAndNoteNumber(999, 1);
+    // GIVEN
+    Note noteUpdate = noteRepository.findNoteByNote("Première note pour le test");
         String newDescription = "Test modifié";
 
         // WHEN
         noteUpdate.setNote(newDescription);
-        Note noteUpdated = noteService.updateNote(999, 1, noteUpdate);
+        Note noteUpdated = noteService.updateNote(noteUpdate.getId(), noteUpdate);
 
         // THEN
         assertThat(noteUpdated.getNote()).isEqualTo(newDescription);

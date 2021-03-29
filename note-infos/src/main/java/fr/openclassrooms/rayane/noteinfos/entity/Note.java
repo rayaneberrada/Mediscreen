@@ -10,14 +10,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class Note {
     @Id String id;
-    Integer noteNumber;
     Integer patId;
     String patient;
     String note;
     Date dateWritten = new Date();
 
-    public Note(Integer noteNumber, Integer patId, String patient, String note) {
-        this.noteNumber = noteNumber;
+    public Note(Integer patId, String patient, String note) {
         this.patId = patId;
         this.patient = patient;
         this.note = note;

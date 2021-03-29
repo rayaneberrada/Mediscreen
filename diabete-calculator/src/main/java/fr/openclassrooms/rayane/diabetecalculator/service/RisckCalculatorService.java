@@ -13,42 +13,58 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class RisckCalculatorService implements RiskCalculator{
 
-    static  RiskLevelConstant riskLevel;
-
     @Override
-    public RiskLevelConstant calculateRisk(Note note, Patient patient) {
+    public RiskLevelConstant calculateRisk(List<Note> file, Patient patient) {
+        int patientFileSymptomsOccurences = 0;
+        RiskLevelConstant riskLevel = null;
+
+        for (Note note: file) {
+            patientFileSymptomsOccurences += calculateNoteSymptomsOccurence(note);
+        }
+
+        if (checkPatientIsEarlyOnSet(patientFileSymptomsOccurences, patient)) {
+            riskLevel = RiskLevelConstant.EARLYONSET;
+        } else if (checkPatientIsInDanger(patientFileSymptomsOccurences, patient)) {
+            riskLevel = RiskLevelConstant.DANGER;
+        } else if (checkPatientIsBorderline(patientFileSymptomsOccurences, patient)) {
+                riskLevel = RiskLevelConstant.BORDERLINE;
+        } else if (checkPatientisSafe(patientFileSymptomsOccurences)) {
+                riskLevel = RiskLevelConstant.NONE;
+        }
+        
+        return riskLevel;
+    }
+
+    public int calculateNoteSymptomsOccurence(Note note) {
         int symptomsOccurence = 0;
         for (String word: cleanNotes(note.getNote())) {
             for (SymptomsConstant symptom: SymptomsConstant.values()) {
-                System.out.println(symptom.toString()); // TO DELETE
-                if (word.equals(symptom.toString())) {
+                if (word.equals(symptom.getLibelle())) {
                     symptomsOccurence += 1;
                 }
             }
         }
-        checkPatientisSafe(symptomsOccurence);
-        checkPatientIsBorderline(symptomsOccurence, patient);
-        checkPatientIsInDanger(symptomsOccurence, patient);
-        checkPatientIsEarlyOnSet(symptomsOccurence, patient);
 
-        return riskLevel;
+        return symptomsOccurence;
     }
 
-    public String[] cleanNotes(String note) {
+    private String[] cleanNotes(String note) {
         return note.replaceAll("\\p{Punct}", " ").toLowerCase().split(" ");
     }
 
-    static int calculateAge(Date birthdate) {
+    private int calculateAge(Date birthdate) {
         LocalDate birthDateLocal = birthdate.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
 
         return Period.between(birthDateLocal,  LocalDate.now()).getYears();
     }
+
   /***********************************************************************************************
    *
    * Methods to know which level of danger the patient is to get diabete
@@ -61,10 +77,8 @@ public class RisckCalculatorService implements RiskCalculator{
    *
    * @param symptomsOccurence
    */
-  static void checkPatientisSafe(int symptomsOccurence) {
-        if (symptomsOccurence > 0) {
-               riskLevel = RiskLevelConstant.NONE;
-        }
+  private Boolean checkPatientisSafe(int symptomsOccurence) {
+               return symptomsOccurence == 0;
     }
 
     /**
@@ -74,11 +88,9 @@ public class RisckCalculatorService implements RiskCalculator{
      * @param symptomsOccurence
      * @param patient
      */
-    static void checkPatientIsBorderline(int symptomsOccurence, Patient patient) {
-        int patientAge = calculateAge(patient.getDate_naissance());
-        if (symptomsOccurence >= 2 && patientAge > 30) {
-            riskLevel = RiskLevelConstant.BORDERLINE;
-        }
+    private Boolean checkPatientIsBorderline(int symptomsOccurence, Patient patient) {
+        int patientAge = calculateAge(patient.getDob());
+        return symptomsOccurence >= 2 && patientAge > 30;
     }
 
     /**
@@ -90,15 +102,11 @@ public class RisckCalculatorService implements RiskCalculator{
      * @param symptomsOccurence
      * @param patient
      */
-    static void checkPatientIsInDanger(int symptomsOccurence, Patient patient) {
-        int patientAge = calculateAge(patient.getDate_naissance());
-        if (symptomsOccurence >= 3 && patient.getGenre().equals("homme") &&  patientAge < 30) {
-            riskLevel = RiskLevelConstant.DANGER;
-        } else if (symptomsOccurence >= 4 && patient.getGenre().equals("femme") &&  patientAge < 30) {
-            riskLevel = RiskLevelConstant.DANGER;
-        } else if (symptomsOccurence >= 6 &&  patientAge > 30) {
-            riskLevel = RiskLevelConstant.DANGER;
-        }
+    private Boolean checkPatientIsInDanger(int symptomsOccurence, Patient patient) {
+        int patientAge = calculateAge(patient.getDob());
+        return symptomsOccurence >= 3 && patient.getSex().equals("H") &&  patientAge < 30 ||
+                symptomsOccurence >= 4 && patient.getSex().equals("F") &&  patientAge < 30 ||
+                symptomsOccurence >= 6 &&  patientAge > 30;
     }
 
     /**
@@ -110,14 +118,10 @@ public class RisckCalculatorService implements RiskCalculator{
      * @param symptomsOccurence
      * @param patient
      */
-    static void checkPatientIsEarlyOnSet(int symptomsOccurence, Patient patient) {
-        int patientAge = calculateAge(patient.getDate_naissance());
-        if (symptomsOccurence >= 5 && patient.getGenre().equals("homme") &&  patientAge < 30) {
-            riskLevel = RiskLevelConstant.EARLYONSET;
-        } else if (symptomsOccurence >= 7 && patient.getGenre().equals("femme") &&  patientAge < 30) {
-            riskLevel = RiskLevelConstant.EARLYONSET;
-        } else if (symptomsOccurence >= 8 &&  patientAge > 30) {
-            riskLevel = RiskLevelConstant.EARLYONSET;
-        }
+    private Boolean checkPatientIsEarlyOnSet(int symptomsOccurence, Patient patient) {
+        int patientAge = calculateAge(patient.getDob());
+        return symptomsOccurence >= 5 && patient.getSex().equals("H") &&  patientAge < 30 ||
+                symptomsOccurence >= 7 && patient.getSex().equals("F") &&  patientAge < 30 ||
+                symptomsOccurence >= 8 &&  patientAge > 30;
     }
 }

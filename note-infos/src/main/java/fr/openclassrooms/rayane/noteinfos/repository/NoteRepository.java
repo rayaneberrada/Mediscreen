@@ -6,7 +6,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface NoteRepository extends MongoRepository<Note, String> {
-    public List<Note> findNoteByPatId(int patId);
+    List<Note> findNoteByPatId(int patId);
 
-    public Note findNoteByPatIdAndNoteNumber(int patId, int noteNumber);
+    List<Note>  findNoteByPatient(String patientName);
+
+    Note findNoteById(String id);
+
+    Note findNoteByNote(String note);
 }

@@ -6,9 +6,8 @@ import java.util.Date;
 
 @Data
 public class Note {
-    Integer noteNumber;
     Integer patId;
-    String patient;
+    String familyName;
     String note;
     Date dateWritten;
 }

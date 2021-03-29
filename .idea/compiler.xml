@@ -8,12 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="patients-infos" />
+        <module name="eureke-server" />
         <module name="note-infos" />
         <module name="diabete-calculator" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="diabete-calculator" target="11" />
+      <module name="eureke-server" target="11" />
       <module name="medi" target="11" />
       <module name="note-infos" target="11" />
       <module name="patients-infos" target="11" />
@@ -22,6 +24,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="diabete-calculator" options="-parameters" />
+      <module name="eureke-server" options="-parameters" />
       <module name="note-infos" options="-parameters" />
       <module name="patients-infos" options="-parameters" />
     </option>
