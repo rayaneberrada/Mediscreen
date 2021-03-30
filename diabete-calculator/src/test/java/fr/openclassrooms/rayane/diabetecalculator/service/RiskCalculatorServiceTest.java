@@ -43,19 +43,19 @@ public class RiskCalculatorServiceTest {
 
 
         Note noteOne = new Note();
-        noteOne.setFamilyName("Test TestNone");
+        noteOne.setPatient("Test TestNone");
         noteOne.setNote("\"Le patient déclare qu'il ne se sent pas si fatigué que ça\n" +
                 "Fumeur, il a arrêté dans les 12 mois précédents\n" +
                 "Tests de laboratoire indiquant que les anticorps sont élevés\"");
 
         Note noteTwo = new Note();
-        noteTwo.setFamilyName("Test TestNone");
+        noteTwo.setPatient("Test TestNone");
         noteTwo.setNote("\"Le patient déclare qu'il se sent fatigué pendant la journée\n" +
                 "Il se plaint également de douleurs musculaires\n" +
                 "Tests de laboratoire indiquant une microalbumine élevée\"");
 
         Note noteThree = new Note();
-        noteThree.setFamilyName("Test TestNone");
+        noteThree.setPatient("Test TestNone");
         noteThree.setNote("\"Le patient déclare qu'il ne se sent pas si fatigué que ça\n" +
                 "Fumeur, il a arrêté dans les 12 mois précédents\n" +
                 "Tests de laboratoire indiquant que les anticorps sont élevés\"");
@@ -68,7 +68,7 @@ public class RiskCalculatorServiceTest {
     public void verifyCalculateNoteOccurenceParseAllSymptoms() throws ParseException {
         // GIVEN
         Note noteWithAllSymptoms = new Note();
-        noteWithAllSymptoms.setFamilyName("Test TestNone");
+        noteWithAllSymptoms.setPatient("Test TestNone");
         noteWithAllSymptoms.setNote("La taille et le poids et le cholestérol et le vertige  et les anticorps " +
                 " et les Microalbumine, être fumeur ainsi qu'être anormal. Avoir une Hémoglobine A1C plus une mauvaise réaction et une Rechute");
 
@@ -91,7 +91,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithoutSymptoms = new Note();
-        noteWithoutSymptoms.setFamilyName("Test TestNone");
+        noteWithoutSymptoms.setPatient("Test TestNone");
         noteWithoutSymptoms.setNote("");
 
         notes.add(noteWithoutSymptoms);
@@ -115,7 +115,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithoutSymptoms = new Note();
-        noteWithoutSymptoms.setFamilyName("Test TestNone");
+        noteWithoutSymptoms.setPatient("Test TestNone");
         noteWithoutSymptoms.setNote("Il y a un symptome: fumeur");
 
         notes.add(noteWithoutSymptoms);
@@ -143,7 +143,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithTwoSymptoms = new Note();
-        noteWithTwoSymptoms.setFamilyName("Test TestNone");
+        noteWithTwoSymptoms.setPatient("Test TestNone");
         noteWithTwoSymptoms.setNote("La taille et le poids font deux symptomes");
 
         notes.add(noteWithTwoSymptoms);
@@ -163,7 +163,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithTwoSymptoms = new Note();
-        noteWithTwoSymptoms.setFamilyName("Test TestNone");
+        noteWithTwoSymptoms.setPatient("Test TestNone");
         noteWithTwoSymptoms.setNote("La taille et le poids font deux symptomes");
 
         notes.add(noteWithTwoSymptoms);
@@ -187,7 +187,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithThreeSymptoms = new Note();
-        noteWithThreeSymptoms.setFamilyName("Test TestNone");
+        noteWithThreeSymptoms.setPatient("Test TestNone");
         noteWithThreeSymptoms.setNote("La taille, le poids et le cholestérol font trois");
 
         notes.add(noteWithThreeSymptoms);
@@ -205,7 +205,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithTwoSymptoms = new Note();
-        noteWithTwoSymptoms.setFamilyName("Test TestNone");
+        noteWithTwoSymptoms.setPatient("Test TestNone");
         noteWithTwoSymptoms.setNote("La taille et le poids  font deux");
 
         notes.add(noteWithTwoSymptoms);
@@ -223,7 +223,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithFourSymptoms = new Note();
-        noteWithFourSymptoms.setFamilyName("Test TestNone");
+        noteWithFourSymptoms.setPatient("Test TestNone");
         noteWithFourSymptoms.setNote("La taille et le poids et le cholestérol ainsi qu'être anormal font quatre");
 
         notes.add(noteWithFourSymptoms);
@@ -241,7 +241,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithSixSymptoms = new Note();
-        noteWithSixSymptoms.setFamilyName("Test TestNone");
+        noteWithSixSymptoms.setPatient("Test TestNone");
         noteWithSixSymptoms.setNote("La taille et le poids et le cholestérol et le vertige  et les anticorps ainsi qu'être anormal font six");
 
         notes.add(noteWithSixSymptoms);
@@ -261,7 +261,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithFiveSymptoms = new Note();
-        noteWithFiveSymptoms.setFamilyName("Test TestNone");
+        noteWithFiveSymptoms.setPatient("Test TestNone");
         noteWithFiveSymptoms.setNote("La taille et le poids et le cholestérol et le vertige ainsi qu'être anormal font cinq");
 
         notes.add(noteWithFiveSymptoms);
@@ -285,7 +285,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithFiveSymptoms = new Note();
-        noteWithFiveSymptoms.setFamilyName("Test TestNone");
+        noteWithFiveSymptoms.setPatient("Test TestNone");
         noteWithFiveSymptoms.setNote("La taille et le poids et le cholestérol et le vertige ainsi qu'être anormal font cinq");
 
         notes.add(noteWithFiveSymptoms);
@@ -304,7 +304,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithFourSymptoms = new Note();
-        noteWithFourSymptoms.setFamilyName("Test TestNone");
+        noteWithFourSymptoms.setPatient("Test TestNone");
         noteWithFourSymptoms.setNote("La taille et le poids et le cholestérol ainsi qu'être anormal font quatre");
 
         notes.add(noteWithFourSymptoms);
@@ -322,7 +322,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithSevenSymptoms = new Note();
-        noteWithSevenSymptoms.setFamilyName("Test TestNone");
+        noteWithSevenSymptoms.setPatient("Test TestNone");
         noteWithSevenSymptoms.setNote("La taille et le poids et le cholestérol et le vertige  et les anticorps " +
                 " et les Microalbumine ainsi qu'être anormal font sept");
 
@@ -341,7 +341,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithSixSymptoms = new Note();
-        noteWithSixSymptoms.setFamilyName("Test TestNone");
+        noteWithSixSymptoms.setPatient("Test TestNone");
         noteWithSixSymptoms.setNote("La taille et le poids et le cholestérol et le vertige  et les anticorps ainsi qu'être anormal font six");
 
         notes.add(noteWithSixSymptoms);
@@ -359,7 +359,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithEightSymptoms = new Note();
-        noteWithEightSymptoms.setFamilyName("Test TestNone");
+        noteWithEightSymptoms.setPatient("Test TestNone");
         noteWithEightSymptoms.setNote("La taille et le poids et le cholestérol et le vertige  et les anticorps " +
                 " et les Microalbumine, être fumeur ainsi qu'être anormal font huit");
 
@@ -380,7 +380,7 @@ public class RiskCalculatorServiceTest {
         List<Note> notes = new ArrayList<>();
 
         Note noteWithSevenSymptoms = new Note();
-        noteWithSevenSymptoms.setFamilyName("Test TestNone");
+        noteWithSevenSymptoms.setPatient("Test TestNone");
         noteWithSevenSymptoms.setNote("La taille et le poids et le cholestérol et le vertige  et les anticorps " +
                 " et les Microalbumine ainsi qu'être anormal font sept");
 

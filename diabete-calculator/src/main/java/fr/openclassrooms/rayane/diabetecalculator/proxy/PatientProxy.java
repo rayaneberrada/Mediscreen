@@ -15,5 +15,5 @@ import java.util.List;
 public interface PatientProxy {
 
     @GetMapping(value = "/get")
-    public Patient getPatientByLastName(@RequestParam String lastName);
+    Patient getPatientByLastName(@RequestParam("lastName") String lastName);
 }

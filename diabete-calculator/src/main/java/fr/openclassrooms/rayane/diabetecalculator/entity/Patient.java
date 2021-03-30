@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Patient {
-    String familyName;
+    String family;
     Date dob;
     String sex;
     String address;

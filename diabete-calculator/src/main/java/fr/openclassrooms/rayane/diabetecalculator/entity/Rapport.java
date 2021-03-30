@@ -1,17 +1,28 @@
 package fr.openclassrooms.rayane.diabetecalculator.entity;
 
 import fr.openclassrooms.rayane.diabetecalculator.constant.RiskLevelConstant;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+
+@NoArgsConstructor
 @Getter
 public class Rapport {
-    Patient patient;
+    String patientNameAndAge;
     String niveauDeRisque;
 
-    public Rapport(Patient patient, RiskLevelConstant niveauDeRisque) {
-        this.patient = patient;
-        this.niveauDeRisque = niveauDeRisque.toString();
+    public void setPatientNameAndAge(Patient patient) {
+        LocalDate birthDateLocal = patient.dob.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        int age = Period.between(birthDateLocal,  LocalDate.now()).getYears();
+        this.patientNameAndAge = patient.family + " (age " + age + ")";
+    }
+
+    public void setNiveauDeRisque(RiskLevelConstant riskLevel) {
+        this.niveauDeRisque = "diabetes assessment is: " + riskLevel.toString();
     }
 }

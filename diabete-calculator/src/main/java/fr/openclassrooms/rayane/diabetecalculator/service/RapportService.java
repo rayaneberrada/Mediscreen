@@ -21,12 +21,26 @@ public class RapportService {
     @Autowired
     PatientProxy patientProxy;
 
-    public Rapport createRapport(int patientId) {
+    public Rapport createRapportByPatientId(int patientId) {
+        Rapport rapport = new Rapport();
         List<Note> patientFile = noteProxy.getNotesByPatientId(patientId);
-        Patient patient = patientProxy.getPatientByLastName(patientFile.get(1).getFamilyName());
-        RiskLevelConstant riskLevel = risckCalculatorService.calculateRisk(patientFile, patient);
-        return new Rapport(patient, riskLevel);
+        Patient patient = patientProxy.getPatientByLastName(patientFile.get(1).getPatient());
+
+        rapport.setPatientNameAndAge(patient);
+        rapport.setNiveauDeRisque(risckCalculatorService.calculateRisk(patientFile, patient));
+
+        return rapport;
     }
 
+    public Rapport createRapportByFamilyName(String familyName) {
+        Rapport rapport = new Rapport();
+        List<Note> patientFile = noteProxy.getNotesFromPatientFamilyName(familyName);
+        Patient patient = patientProxy.getPatientByLastName(patientFile.get(1).getPatient());
+
+        rapport.setPatientNameAndAge(patient);
+        rapport.setNiveauDeRisque(risckCalculatorService.calculateRisk(patientFile, patient));
+
+        return rapport;
+    }
 
 }

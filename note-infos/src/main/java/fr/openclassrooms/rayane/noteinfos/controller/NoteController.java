@@ -18,17 +18,19 @@ public class NoteController {
     @Autowired
     NoteService noteService;
 
-/*    @GetMapping(value = "/get/{patientId}")
-    public List<Note> getNotesByPatientId(@PathVariable int patientId) {
+    @ApiOperation(
+            value = "Récupère et affiche la liste des notes en fonction de l'id d'un patient",
+            notes = "Exemple d'appel: curl GET http://localhost:8082/patHistory/get/1")
+    @GetMapping(value = "/get/{patientId}")
+    public List<Note> getNotesByPatientId(@PathVariable("patientId") int patientId) {
         return noteService.getNoteByPatientId(patientId);
-    }*/
+    }
 
     @ApiOperation(
             value = "Récupère et affiche la liste des notes en fonction du nom d'un patient",
             notes = "Exemple d'appel: curl GET http://localhost:8082/patHistory/get?patientName=TestNone")
-    @GetMapping(value = "/get",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Note> getSpecificNoteFromPatient(@RequestParam String patientName) {
+    @GetMapping(value = "/get")
+    List<Note> getNotesFromPatientFamilyName(@RequestParam("patientName") String patientName) {
         return noteService.getNoteByPatientName(patientName);
     }
 

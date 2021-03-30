@@ -28,7 +28,7 @@ public class PatientController {
           "Exemple d'appel: curl GET http://localhost:8081/patient/get?lastName=TestNone")
   @GetMapping(value = "/get",
               produces = MediaType.APPLICATION_JSON_VALUE)
-  public PatientDto getPatientByLastName(@RequestParam String lastName) {
+  public PatientDto getPatientByLastName(@RequestParam("lastName") String lastName) {
         logger.info(String.format("http://localhost:8080/getPatient?lastName=%s", lastName));
         return patientService.findByLastName(lastName);
     }

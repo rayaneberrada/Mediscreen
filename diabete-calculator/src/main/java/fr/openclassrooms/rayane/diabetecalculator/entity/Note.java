@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class Note {
     Integer patId;
-    String familyName;
+    String patient;
     String note;
     Date dateWritten;
 }
