@@ -31,10 +31,6 @@ public class PatientService {
 
         // patient informations are updated with new inforamtions transmitted
         patientToUpdate.setAddress(patient.getAddress());
-        patientToUpdate.setSex(patient.getSex());
-        patientToUpdate.setDob(patient.getDob());
-        patientToUpdate.setGiven(patient.getGiven());
-        patientToUpdate.setFamily(patient.getFamily());
         patientToUpdate.setPhone(patient.getPhone());
 
         // Patient informations in db are updated and it's dto is returned
