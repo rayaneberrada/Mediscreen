@@ -13,7 +13,7 @@ import java.util.List;
 @Api("Pour les opérations CRUD sur les notes")
 @RestController
 @RequestMapping(value = "/patHistory")
-public class NoteController {
+public class NoteControllerApi {
 
     @Autowired
     NoteService noteService;

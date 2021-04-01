@@ -15,6 +15,10 @@ public class NoteService {
     @Autowired
     NoteRepository noteRepository;
 
+    public Note getNoteById(String id) {
+        return noteRepository.findNoteById(id);
+    }
+
     public List<Note> getNoteByPatientId(int patientId) {
         return noteRepository.findNoteByPatId(patientId);
     }
