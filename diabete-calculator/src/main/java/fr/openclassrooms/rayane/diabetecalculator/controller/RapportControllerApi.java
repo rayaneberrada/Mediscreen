@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("Pour les opérations CRUD sur les notes")
 @RestController
 @RequestMapping(value = "/assess")
-public class RapportController {
+public class RapportControllerApi {
 
     @Autowired
     RapportService rapportService;
