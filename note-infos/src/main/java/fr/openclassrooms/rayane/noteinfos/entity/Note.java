@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -13,7 +14,7 @@ public class Note {
     Integer patId;
     String patient;
     String note;
-    Date dateWritten = new Date();
+    LocalDate dateWritten;
 
     public Note(Integer patId, String patient, String note) {
         this.patId = patId;

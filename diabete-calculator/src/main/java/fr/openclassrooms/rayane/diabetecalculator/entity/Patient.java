@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -13,12 +14,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class Patient {
     String family;
-    Date dob;
+    LocalDate dob;
     String sex;
     String address;
     String phone;
 
     public void setDob(String dob) throws ParseException {
-        this.dob = new SimpleDateFormat("yyyy-MM-dd").parse(dob); ;
+        this.dob = LocalDate.parse(dob);
     }
 }

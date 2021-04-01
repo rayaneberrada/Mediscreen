@@ -15,12 +15,12 @@ import java.util.Date;
 public class PatientDto {
     String given;
     String family;
-    Date dob;
+    LocalDate dob;
     String sex;
     String address;
     String phone;
 
     public void setDob(String dob) throws ParseException {
-        this.dob = new SimpleDateFormat("yyyy-MM-dd").parse(dob); ;
+        this.dob = LocalDate.parse(dob);
     }
 }

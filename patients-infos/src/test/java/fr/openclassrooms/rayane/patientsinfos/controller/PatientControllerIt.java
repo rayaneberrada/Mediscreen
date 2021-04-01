@@ -9,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDate;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,7 +47,7 @@ public class PatientControllerIt {
             post("/patient/add")
                     .param("given", "johnny")
                     .param("family", "cash")
-                    .param("dob", "1968-12-06T00:00:00.000+00:00")
+                    .param("dob", String.valueOf(LocalDate.now()))
                     .param("sex", "H")
                     .param("address", "14 boulevard saint-jean")
                     .param("phone", "0651436590")

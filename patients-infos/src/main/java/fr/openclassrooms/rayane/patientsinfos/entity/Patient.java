@@ -20,7 +20,7 @@ public class Patient {
 
     String family;
     String given;
-    Date dob;
+    LocalDate dob;
     String sex;
     String address;
     String phone;

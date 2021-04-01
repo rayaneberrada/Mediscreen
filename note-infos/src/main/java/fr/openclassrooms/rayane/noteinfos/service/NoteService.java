@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class NoteService {
     }*/
 
     public Note addNote(Note note) {
+        note.setDateWritten(LocalDate.now());
         return noteRepository.save(note);
     }
 
@@ -39,7 +41,7 @@ public class NoteService {
         Note noteToUpdate = noteRepository.findNoteById(noteId);
 
         // note modified with informations from new note
-        noteToUpdate.setDateWritten(new Date());
+        noteToUpdate.setDateWritten(LocalDate.now());
         noteToUpdate.setNote(note.getNote());
 
         return noteRepository.save(noteToUpdate);

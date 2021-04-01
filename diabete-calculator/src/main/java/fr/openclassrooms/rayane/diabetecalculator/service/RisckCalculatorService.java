@@ -57,12 +57,8 @@ public class RisckCalculatorService implements RiskCalculator{
         return note.replaceAll("\\p{Punct}", " ").toLowerCase().split(" ");
     }
 
-    private int calculateAge(Date birthdate) {
-        LocalDate birthDateLocal = birthdate.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-
-        return Period.between(birthDateLocal,  LocalDate.now()).getYears();
+    private int calculateAge(LocalDate birthdate) {
+        return Period.between(birthdate,  LocalDate.now()).getYears();
     }
 
   /***********************************************************************************************

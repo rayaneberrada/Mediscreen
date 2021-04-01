@@ -40,7 +40,7 @@ public class PatientServiceIt {
     @Order(1)
     public void Add_NewPatient_ThenReturnIt() {
         // GIVEN
-        PatientDto patientDto = new PatientDto("alphonse", "mairedelille",new Date(), "F","quelue part", "0654378290");
+        PatientDto patientDto = new PatientDto("alphonse", "mairedelille",LocalDate.now(), "F","quelue part", "0654378290");
 
         // WHEN
         PatientDto patient = patientService.addPatient(patientDto);
@@ -68,7 +68,7 @@ public class PatientServiceIt {
     public void Update_FromFirstNameAndLastName_CorrespondingPatient() {
         // GIVEN
         String lastName = "mairedelille";
-        PatientDto patientDto = new PatientDto("alphonse", "mairedelille", new Date(), "femme","Lille", "000");
+        PatientDto patientDto = new PatientDto("alphonse", "mairedelille", LocalDate.now(), "femme","Lille", "000");
 
         // WHEN
         PatientDto patient = patientService.updatePatient(lastName, patientDto);

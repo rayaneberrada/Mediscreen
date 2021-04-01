@@ -14,11 +14,7 @@ public class Rapport {
     String niveauDeRisque;
 
     public void setPatientNameAndAge(Patient patient) {
-        LocalDate birthDateLocal = patient.dob.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-
-        int age = Period.between(birthDateLocal,  LocalDate.now()).getYears();
+        int age = Period.between(patient.dob,  LocalDate.now()).getYears();
         this.patientNameAndAge = patient.family + " (age " + age + ")";
     }
 
