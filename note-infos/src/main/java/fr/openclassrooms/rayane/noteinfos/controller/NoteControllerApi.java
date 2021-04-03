@@ -4,6 +4,8 @@ import fr.openclassrooms.rayane.noteinfos.entity.Note;
 import fr.openclassrooms.rayane.noteinfos.service.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.util.List;
 @RequestMapping(value = "/patHistory")
 public class NoteControllerApi {
 
+    private Logger logger = LoggerFactory.getLogger(NoteControllerApi.class);
+
     @Autowired
     NoteService noteService;
 
@@ -23,6 +27,7 @@ public class NoteControllerApi {
             notes = "Exemple d'appel: curl GET http://localhost:8082/patHistory/get/1")
     @GetMapping(value = "/get/{patientId}")
     public List<Note> getNotesByPatientId(@PathVariable("patientId") int patientId) {
+        logger.info("http://localhost:8082/patHistory/get/" + patientId);
         return noteService.getNoteByPatientId(patientId);
     }
 
@@ -31,6 +36,7 @@ public class NoteControllerApi {
             notes = "Exemple d'appel: curl GET http://localhost:8082/patHistory/get?patientName=TestNone")
     @GetMapping(value = "/get")
     List<Note> getNotesFromPatientFamilyName(@RequestParam("patientName") String patientName) {
+        logger.info("http://localhost:8082/patHistory/get?patientName=" + patientName);
         return noteService.getNoteByPatientName(patientName);
     }
 
@@ -42,7 +48,8 @@ public class NoteControllerApi {
       consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Note addNote(Note note) {
-        return noteService.addNote(note);
+      logger.info("http://localhost:8082/patHistory/add");
+      return noteService.addNote(note);
     }
 
     @ApiOperation(
@@ -52,6 +59,7 @@ public class NoteControllerApi {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Note updateNote(@RequestParam String noteId, Note note) {
+        logger.info("http://localhost:8082/patHistory/update");
         return noteService.updateNote(noteId, note);
     }
 }

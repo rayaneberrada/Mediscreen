@@ -27,6 +27,13 @@ public class PatientController {
     @Autowired
     PatientService patientService;
 
+    /**
+     * Display page with the inforamtions related to the patient requested
+     *
+     * @param lastName
+     * @param model
+     * @return html page infos
+     */
     @GetMapping(value = "/infos")
     public String getPatientByLastName(@RequestParam("lastName") String lastName, Model model) {
         logger.info(String.format("http://localhost:8080/getPatient?lastName=%s", lastName));
@@ -34,6 +41,14 @@ public class PatientController {
         return "infos";
     }
 
+    /**
+     * Display the page containing the form to update a patient informations
+     *
+     * @param lastName
+     * @param patient
+     * @param model
+     * @return html page update
+     */
     @GetMapping(
             value = "/update")
     public String showUpdateForm(@RequestParam String lastName, PatientDto patient, Model model) {
@@ -43,6 +58,14 @@ public class PatientController {
         return "update";
     }
 
+    /**
+     * Route to update patient infos
+     *
+     * @param lastName
+     * @param patient
+     * @param result
+     * @return update html page if fail to update or home page if patient correctly updated
+     */
     @PostMapping(
             value = "/update")
     public String updatePatient(@RequestParam String lastName, @Valid PatientDto patient, BindingResult result) {
@@ -55,6 +78,12 @@ public class PatientController {
         return "redirect:/";
     }
 
+    /**
+     * Route to display the page containing the form to add a patient
+     *
+     * @param patient
+     * @return add html page
+     */
     @GetMapping(
             value = "/add")
     public String showAddForm(PatientDto patient) {
@@ -62,10 +91,18 @@ public class PatientController {
         return "add";
     }
 
+    /**
+     * Route to validate data and add a new patient in db
+     *
+     * @param patient
+     * @param result
+     * @param model
+     * @return redirect to html home page if success or to the page to add if failure
+     */
     @PostMapping(
             value = "/validate")
     public String validate(@Valid PatientDto patient, BindingResult result, Model model) {
-        logger.info("http://localhost:8080/validate/add");
+        logger.info("http://localhost:8080/patient/validate");
         if (!result.hasErrors()) {
             patientService.addPatient(patient);
             return "redirect:/";

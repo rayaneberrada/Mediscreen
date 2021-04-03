@@ -5,6 +5,8 @@ import fr.openclassrooms.rayane.diabetecalculator.service.RapportService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/assess")
 public class RapportControllerApi {
+
+    private Logger logger = LoggerFactory.getLogger(RapportControllerApi.class);
 
     @Autowired
     RapportService rapportService;
@@ -25,7 +29,8 @@ public class RapportControllerApi {
       consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Rapport getRapportByUserId(int patId) {
-        return rapportService.createRapportByPatientId(patId);
+      logger.info("http://localhost:8080/assess/id");
+      return rapportService.createRapportByPatientId(patId);
     }
 
   @ApiOperation(
@@ -36,6 +41,7 @@ public class RapportControllerApi {
       consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Rapport getRapportByUserFamilyName(String familyName) {
+        logger.info("http://localhost:8080/assess/familyName");
         return rapportService.createRapportByFamilyName(familyName);
     }
 }

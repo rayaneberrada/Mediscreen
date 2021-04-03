@@ -25,6 +25,13 @@ public class NoteControllerView {
     @Autowired
     NoteService noteService;
 
+    /**
+     * Display page with the inforamtions related to the note requested
+     *
+     * @param lastName
+     * @param model
+     * @return html page infos
+     */
     @GetMapping(value = "/infos")
     public String getPatientByLastName(@RequestParam("lastName") String lastName, Model model) {
         logger.info(String.format("http://localhost:8080/getPatient?lastName=%s", lastName));
@@ -32,16 +39,31 @@ public class NoteControllerView {
         return "infos";
     }
 
+    /**
+     * Display the page containing the form to update a note informations
+     *
+     * @param id
+     * @param note
+     * @param model
+     * @return html page update
+     */
     @GetMapping(
             value = "/update")
     public String showUpdateForm(@RequestParam String id, Note note, Model model) {
         logger.info(String.format("http://localhost:8080/note/update?id=%s", id));
         Note noteToUpdate = noteService.getNoteById(id);
-        logger.info(String.valueOf(noteToUpdate));
         model.addAttribute("noteDto", noteToUpdate);
         return "update";
     }
 
+    /**
+     * Route to update note infos
+     *
+     * @param id
+     * @param note
+     * @param result
+     * @return update html page if fail to update or home page if patient correctly updated
+     */
     @PostMapping(
             value = "/update")
     public String updateNote(@RequestParam String id, @Valid Note note, BindingResult result) {
@@ -54,6 +76,12 @@ public class NoteControllerView {
         return "redirect:/";
     }
 
+    /**
+     * Route to display the page containing the form to add a note
+     *
+     * @param note
+     * @return add html page
+     */
     @GetMapping(
             value = "/add")
     public String showAddForm(Note note) {
@@ -61,6 +89,14 @@ public class NoteControllerView {
         return "add";
     }
 
+    /**
+     * Route to validate data and add a new note in db
+     *
+     * @param note
+     * @param result
+     * @param model
+     * @return redirect to html home page if success or to the page to add if failure
+     */
     @PostMapping(
             value = "/validate")
     public String validate(@Valid Note note, BindingResult result, Model model) {

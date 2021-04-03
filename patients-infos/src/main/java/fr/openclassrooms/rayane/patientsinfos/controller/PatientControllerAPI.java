@@ -22,20 +22,18 @@ public class PatientControllerAPI {
 
     @ApiOperation(
             value = "Récupère et affiche un patient en le cherchant en bdd via son son nom",
-            notes =
-                    "Exemple d'appel: curl GET http://localhost:8081/patient/get?lastName=TestNone")
+            notes = "Exemple d'appel: curl GET http://localhost:8081/patient/get?lastName=TestNone")
     @GetMapping(value = "/get",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public PatientDto getPatientByLastName(@RequestParam("lastName") String lastName) {
-        logger.info(String.format("http://localhost:8080/getPatient?lastName=%s", lastName));
+        logger.info(String.format("http://localhost:8080/patient/get?lastName=%s", lastName));
         return patientService.findByLastName(lastName);
     }
 
     @ApiOperation(
             value = "Modifie un patient avec les données fournies dans le body en le cherchant en bdd via son prénom et son nom",
             notes = "Exemple d'appel: curl -d \"family=TestNone&given=Test&dob=1966-12-31&sex=F&address=1 Brookside St&phone=100-222-7777\" -X PUT http://localhost:8081/patient/update?lastName=TestNone")
-    @PutMapping(
-            value = "/update",
+    @PutMapping(value = "/update",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public PatientDto updatePatient(@RequestParam String lastName, PatientDto patient) {
@@ -47,12 +45,11 @@ public class PatientControllerAPI {
             value = "Ajoute un patient en bdd en utilisant les données fournies dans body",
             notes =
                     "\"Exemple d'appel: curl -d \\\"family=TestNone&given=Test&dob=1966-12-31&sex=F&address=1 Brookside St&phone=100-222-3333\\\" -X POST http://localhost:8081/patient/add")
-    @PostMapping(
-            value = "/add",
+    @PostMapping(value = "/add",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public PatientDto addPatient(PatientDto patient) {
-        logger.info("http://localhost:8080/updatePatient");
+        logger.info("http://localhost:8080/patient/add");
         return patientService.addPatient(patient);
     }
 }

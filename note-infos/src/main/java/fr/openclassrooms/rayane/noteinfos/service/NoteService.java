@@ -16,14 +16,32 @@ public class NoteService {
     @Autowired
     NoteRepository noteRepository;
 
+    /**
+     * Method to retrieve a note by it's id
+     *
+     * @param id
+     * @return a Note
+     */
     public Note getNoteById(String id) {
         return noteRepository.findNoteById(id);
     }
 
+    /**
+     * Method to retrieve all the notes from a patient by it's id
+     *
+     * @param patientId
+     * @return a list of notes
+     */
     public List<Note> getNoteByPatientId(int patientId) {
         return noteRepository.findNoteByPatId(patientId);
     }
 
+    /**
+     * Method to retrieve all the notes from a patient by it's name
+     *
+     * @param patientName
+     * @return a list of notes
+     */
     public List<Note> getNoteByPatientName(String patientName) {
         return noteRepository.findNoteByPatient(patientName);
     }
@@ -32,11 +50,24 @@ public class NoteService {
         return noteRepository.findNoteByPatIdAndNoteNumber(patientId, noteNumber);
     }*/
 
+    /**
+     * Method to add a note in db
+     *
+     * @param note
+     * @return Note added
+     */
     public Note addNote(Note note) {
         note.setDateWritten(LocalDate.now());
         return noteRepository.save(note);
     }
 
+    /**
+     * Method to update a note by it's id
+     *
+     * @param noteId
+     * @param note
+     * @return Note updated
+     */
     public Note updateNote(String noteId, Note note) {
         Note noteToUpdate = noteRepository.findNoteById(noteId);
 
@@ -47,6 +78,12 @@ public class NoteService {
         return noteRepository.save(noteToUpdate);
     }
 
+
+    /**
+     * Method to delete a note by it's note text
+     *
+     * @param note
+     */
     public void deleteNote(String note) {
         Note noteToDelete = noteRepository.findNoteByNote(note);
         noteRepository.delete(noteToDelete);

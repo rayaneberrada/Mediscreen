@@ -18,10 +18,18 @@ import java.util.List;
 @Service
 public class RisckCalculatorService implements RiskCalculator{
 
+    /**
+     * Take a list of notes and a patient and calculate the risk, depending of the informations contained in those notes,
+     * the risk the patient get diabete
+     *
+     * @param file
+     * @param patient
+     * @return a RiskLevelConstant level
+     */
     @Override
     public RiskLevelConstant calculateRisk(List<Note> file, Patient patient) {
         int patientFileSymptomsOccurences = 0;
-        RiskLevelConstant riskLevel = null;
+        RiskLevelConstant riskLevel = RiskLevelConstant.NONE;
 
         for (Note note: file) {
             patientFileSymptomsOccurences += calculateNoteSymptomsOccurence(note);
@@ -40,6 +48,12 @@ public class RisckCalculatorService implements RiskCalculator{
         return riskLevel;
     }
 
+    /**
+     * Calculate the amount of occurence of symptoms defined in SymptomsConstant in a note
+     *
+     * @param note
+     * @return the amount of symptoms found in a note
+     */
     public int calculateNoteSymptomsOccurence(Note note) {
         int symptomsOccurence = 0;
         for (String word: cleanNotes(note.getNote())) {
@@ -53,6 +67,12 @@ public class RisckCalculatorService implements RiskCalculator{
         return symptomsOccurence;
     }
 
+    /**
+     * Retrieve punctuation and separate each word
+     *
+     * @param note
+     * @return a list containing each word retrieve from the note
+     */
     private String[] cleanNotes(String note) {
         return note.replaceAll("\\p{Punct}", " ").toLowerCase().split(" ");
     }

@@ -21,6 +21,12 @@ public class RapportService {
     @Autowired
     PatientProxy patientProxy;
 
+    /**
+     * Method to create a rapport using the id of a patient
+     *
+     * @param patientId
+     * @return a Rapport
+     */
     public Rapport createRapportByPatientId(int patientId) {
         Rapport rapport = new Rapport();
         List<Note> patientFile = noteProxy.getNotesByPatientId(patientId);
@@ -32,6 +38,12 @@ public class RapportService {
         return rapport;
     }
 
+    /**
+     * Method to create a rapport using the last name of a patient
+     *
+     * @param familyName
+     * @return a Rapport
+     */
     public Rapport createRapportByFamilyName(String familyName) {
         Rapport rapport = new Rapport();
         List<Note> patientFile = noteProxy.getNotesFromPatientFamilyName(familyName);

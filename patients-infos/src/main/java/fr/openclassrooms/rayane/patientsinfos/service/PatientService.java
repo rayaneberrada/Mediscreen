@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service to manage patient
+ */
 @Service
 public class PatientService {
 
@@ -20,11 +23,24 @@ public class PatientService {
     @Autowired
     private ModelMapper modelMapper;
 
+    /**
+     * Method to get a patient by it's last name
+     *
+     * @param lastName
+     * @return PatientDto object mapped with the infos from a Patient object
+     */
     public PatientDto findByLastName(String lastName) {
         PatientDto patient = modelMapper.map(patientRepository.findByFamily(lastName), PatientDto.class);
         return patient;
     }
 
+    /**
+     * Method to update a patient by it's last name
+     *
+     * @param lastName
+     * @param patient
+     * @return PatientDto
+     */
     public PatientDto updatePatient(String lastName, PatientDto patient) {
         // Retrieve patient corresponding to firstName and lastName
         Patient patientToUpdate = patientRepository.findByFamily(lastName);
@@ -38,6 +54,12 @@ public class PatientService {
         return patient;
     }
 
+    /**
+     * Method to add a new patient in database
+     *
+     * @param patient
+     * @return
+     */
     public PatientDto addPatient(PatientDto patient) {
         Patient patientToAdd = modelMapper.map(patient, Patient.class);
         System.out.println(patient.getDob().toString());
@@ -47,6 +69,11 @@ public class PatientService {
         return patient;
     }
 
+    /**
+     * Method to delete a patient from database
+     *
+     * @param lastName
+     */
     public void deletePatient(String lastName) {
         Patient patient = patientRepository.findByFamily(lastName);
         patientRepository.delete(patient);

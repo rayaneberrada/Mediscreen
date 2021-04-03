@@ -19,9 +19,16 @@ public class RapportControllerView {
     @Autowired
     RapportService rapportService;
 
+    /**
+     * Route to display the rapport
+     *
+     * @param lastName
+     * @param model
+     * @return an html page with informations of the rapport
+     */
     @GetMapping(value = "/infos")
     public String getPatientByLastName(@RequestParam("lastName") String lastName, Model model) {
-        logger.info(String.format("http://localhost:8080/getPatient?lastName=%s", lastName));
+        logger.info(String.format("http://localhost:8080/infos?lastName=%s", lastName));
         model.addAttribute("rapport", rapportService.createRapportByFamilyName(lastName));
         return "infos";
     }
