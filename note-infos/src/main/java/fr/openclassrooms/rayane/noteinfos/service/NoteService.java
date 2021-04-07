@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class NoteService {
@@ -23,7 +24,7 @@ public class NoteService {
      * @return a Note
      */
     public Note getNoteById(String id) {
-        return noteRepository.findNoteById(id);
+        return noteRepository.findNoteById(id).orElseThrow(NoSuchElementException::new);
     }
 
     /**
@@ -69,7 +70,7 @@ public class NoteService {
      * @return Note updated
      */
     public Note updateNote(String noteId, Note note) {
-        Note noteToUpdate = noteRepository.findNoteById(noteId);
+        Note noteToUpdate = noteRepository.findNoteById(noteId).orElseThrow(NoSuchElementException::new);
 
         // note modified with informations from new note
         noteToUpdate.setDateWritten(LocalDate.now());
@@ -85,7 +86,7 @@ public class NoteService {
      * @param note
      */
     public void deleteNote(String note) {
-        Note noteToDelete = noteRepository.findNoteByNote(note);
+        Note noteToDelete = noteRepository.findNoteByNote(note).orElseThrow(NoSuchElementException::new);
         noteRepository.delete(noteToDelete);
     }
 }

@@ -18,6 +18,7 @@
             <label>Patient last name:</label>
             <input type="text" th:name="lastName" placeholder="last name"/>
             <input type="submit"/>
+            <p class="text-danger" th:if="${errorMessage != null}" th:text="${errorMessage}" style="color: red"></p>
         </form>
     </div>
 

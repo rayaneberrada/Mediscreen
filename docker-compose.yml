@@ -1,0 +1,31 @@
+eureka-server:
+  image:  eureka-server:0.0.1-SNAPSHOT
+  ports:
+    - 8761:8761
+
+note-infos:
+  image: note-infos:0.0.1-SNAPSHOT
+  links:
+    - eureka-server
+  environment:
+    EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+  ports:
+    - 8082:8082
+
+patients-infos:
+  image: patients-infos:0.0.1-SNAPSHOT
+  links:
+    - eureka-server
+  environment:
+    EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+  ports:
+    - 8081:8081
+
+diabete-calculator:
+  image: diabete-calculator:0.0.1-SNAPSHOT
+  links:
+    - eureka-server
+  environment:
+    EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+  ports:
+    - 8080:8080

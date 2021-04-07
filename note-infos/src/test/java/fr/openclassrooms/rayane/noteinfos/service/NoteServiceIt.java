@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -64,7 +65,7 @@ public class NoteServiceIt {
     @Order(3)
     public void Update_NoteDescription() {
     // GIVEN
-    Note noteUpdate = noteRepository.findNoteByNote("Première note pour le test");
+    Note noteUpdate = noteRepository.findNoteByNote("Première note pour le test").orElseThrow(NoSuchElementException::new);
         String newDescription = "Test modifié";
 
         // WHEN

@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.NoSuchElementException;
 
 
 @Controller
@@ -37,7 +38,15 @@ public class PatientController {
     @GetMapping(value = "/infos")
     public String getPatientByLastName(@RequestParam("lastName") String lastName, Model model) {
         logger.info(String.format("http://localhost:8080/getPatient?lastName=%s", lastName));
-        model.addAttribute("patientInfos", patientService.findByLastName(lastName));
+        try{
+            PatientDto patientDto = patientService.findByLastName(lastName);
+            model.addAttribute("patientInfos", patientService.findByLastName(lastName));
+        } catch (NoSuchElementException e) {
+            String errorMessage = "This patient doesn't exist";
+            model.addAttribute("errorMessage", errorMessage);
+            return "get";
+        }
+
         return "infos";
     }
 

@@ -35,7 +35,12 @@ public class NoteControllerView {
     @GetMapping(value = "/infos")
     public String getPatientByLastName(@RequestParam("lastName") String lastName, Model model) {
         logger.info(String.format("http://localhost:8080/getPatient?lastName=%s", lastName));
-        model.addAttribute("notes", noteService.getNoteByPatientName(lastName));
+        List<Note> notes = noteService.getNoteByPatientName(lastName);
+        if (notes.isEmpty()) {
+            model.addAttribute("errorMessage", "No notes for this patient name");
+            return "get";
+        }
+        model.addAttribute("notes", notes);
         return "infos";
     }
 

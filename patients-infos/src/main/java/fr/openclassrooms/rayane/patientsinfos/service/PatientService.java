@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 /**
  * Service to manage patient
  */
@@ -30,8 +33,9 @@ public class PatientService {
      * @return PatientDto object mapped with the infos from a Patient object
      */
     public PatientDto findByLastName(String lastName) {
-        PatientDto patient = modelMapper.map(patientRepository.findByFamily(lastName), PatientDto.class);
-        return patient;
+        Patient patient = patientRepository.findByFamily(lastName).orElseThrow(NoSuchElementException::new);
+        PatientDto patientDto = modelMapper.map(patient, PatientDto.class);
+        return patientDto;
     }
 
     /**
@@ -43,7 +47,7 @@ public class PatientService {
      */
     public PatientDto updatePatient(String lastName, PatientDto patient) {
         // Retrieve patient corresponding to firstName and lastName
-        Patient patientToUpdate = patientRepository.findByFamily(lastName);
+        Patient patientToUpdate = patientRepository.findByFamily(lastName).orElseThrow(NoSuchElementException::new);
 
         // patient informations are updated with new inforamtions transmitted
         patientToUpdate.setAddress(patient.getAddress());
@@ -75,7 +79,7 @@ public class PatientService {
      * @param lastName
      */
     public void deletePatient(String lastName) {
-        Patient patient = patientRepository.findByFamily(lastName);
+        Patient patient = patientRepository.findByFamily(lastName).orElseThrow(NoSuchElementException::new);
         patientRepository.delete(patient);
     }
 }
