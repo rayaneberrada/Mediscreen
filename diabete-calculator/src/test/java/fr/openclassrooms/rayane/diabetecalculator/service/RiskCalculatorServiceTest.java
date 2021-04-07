@@ -127,10 +127,10 @@ public class RiskCalculatorServiceTest {
         RiskLevelConstant isSafeFemaleUnderThirty = risckCalculatorService.calculateRisk(notes, patientFemaleUnderTHirty);
 
         // THEN
-        assertThat(isSafeMaleOverThirty).isEqualTo(null);
-        assertThat(isSafeFemaleOverThirty).isEqualTo(null);
-        assertThat(isSafeMaleUnderThirty).isEqualTo(null);
-        assertThat(isSafeFemaleUnderThirty).isEqualTo(null);
+        assertThat(isSafeMaleOverThirty).isEqualTo(RiskLevelConstant.NONE);
+        assertThat(isSafeFemaleOverThirty).isEqualTo(RiskLevelConstant.NONE);
+        assertThat(isSafeMaleUnderThirty).isEqualTo(RiskLevelConstant.NONE);
+        assertThat(isSafeFemaleUnderThirty).isEqualTo(RiskLevelConstant.NONE);
     }
 
     /*********************************************************************************************************************
@@ -173,8 +173,8 @@ public class RiskCalculatorServiceTest {
         RiskLevelConstant isBorderlineFemaleUnderThirty = risckCalculatorService.calculateRisk(notes, patientFemaleUnderTHirty);
 
         // THEN
-        assertThat(isBorderlineMaleUnderThirty).isEqualTo(null);
-        assertThat(isBorderlineFemaleUnderThirty).isEqualTo(null);
+        assertThat(isBorderlineMaleUnderThirty).isEqualTo(RiskLevelConstant.NONE);
+        assertThat(isBorderlineFemaleUnderThirty).isEqualTo(RiskLevelConstant.NONE);
     }
 
     /*********************************************************************************************************************
@@ -214,7 +214,7 @@ public class RiskCalculatorServiceTest {
         RiskLevelConstant isInDangerMaleUnderThirty = risckCalculatorService.calculateRisk(notes, patientMaleUnderThirty);
 
         // THEN
-        assertThat(isInDangerMaleUnderThirty).isEqualTo(null);
+        assertThat(isInDangerMaleUnderThirty).isEqualTo(RiskLevelConstant.NONE);
     }
 
     @Test
